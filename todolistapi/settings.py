@@ -27,7 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL="authentication.User"
+# Custom user model
+AUTH_USER_MODEL = "authentication.User"
+
+# Authentication backends
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'authentication.backends.EmailBackend', 
+]
 
 # Application definition
 
@@ -41,7 +48,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'todos',
-
 ]
 
 MIDDLEWARE = [
