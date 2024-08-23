@@ -41,10 +41,23 @@
 
 from django.shortcuts import render
 from rest_framework.generics import GenericAPIView
+from authentication import serializers
 from authentication.serializers import LoginSerializer, RegisterSerializer
-from rest_framework import response, status
+from rest_framework import response, status, permissions
 from rest_framework.permissions import AllowAny
 from django.contrib import auth
+
+
+class AuthUserAPIVIew (GenericAPIView):
+
+    permission_classes = (permissions.IsAuthenticated,)
+    
+    
+    def get(self,request):
+        user=request.user
+        serializer = RegisterSerializer(user)
+        return response.Response({'user':serializer.data})
+
 
 class RegisterAPIVIew(GenericAPIView):
     serializer_class = RegisterSerializer

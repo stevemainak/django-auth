@@ -4,4 +4,5 @@ from authentication import views
 urlpatterns=[
     path('register', views.RegisterAPIVIew.as_view(), name='register'),
     path('login', views.LoginAPIVIew.as_view(), name='login'),
+    path('user', views.AuthUserAPIVIew.as_view(), name='user'),
 ]
