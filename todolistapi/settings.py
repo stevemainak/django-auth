@@ -47,7 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'authentication',
+    'django_filters',
     'todos',
+    'drf_yasg',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 ]
 
 ROOT_URLCONF = 'todolistapi.urls'
@@ -91,6 +96,10 @@ DATABASES = {
     }
 }
 
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:41911',
+]
+
 
 
 # Password validation
@@ -111,6 +120,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SWAGGER_SETTINGS={
+    'SECURITY_DEFINITIONS':{
+        'Bearer':{
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        
+        }
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -126,7 +145,8 @@ USE_TZ = True
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'authentication.jwt.JWTAuthentication',
-    ]
+    ],
+    'DEFAULT_PAGINATION_CLASS': "rest_framework.pagination.PageNumberPagination",'PAGE_SIZE':6
 }
 
 # Static files (CSS, JavaScript, Images)

@@ -60,6 +60,7 @@ class AuthUserAPIVIew (GenericAPIView):
 
 
 class RegisterAPIVIew(GenericAPIView):
+    authentication_classes = []
     serializer_class = RegisterSerializer
 
     def post(self, request):
@@ -73,6 +74,7 @@ class RegisterAPIVIew(GenericAPIView):
         return response.Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class LoginAPIVIew(GenericAPIView):
+    authentication_classes = []
     permission_classes = [AllowAny,]
     serializer_class = LoginSerializer
 
